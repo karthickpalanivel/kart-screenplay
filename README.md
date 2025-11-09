@@ -1,4 +1,4 @@
-# Film Script Maker
+# Script Maker
 
 A professional film script writing application that runs fully offline. Write screenplays with A4 page layout, custom formatting modes, comments, and export to PDF/DOCX.
 
