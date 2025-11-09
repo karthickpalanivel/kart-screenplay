@@ -1,0 +1,253 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Courier New', Courier, monospace;
+  background: #f0f0f0;
+  overflow-x: hidden;
+}
+
+/* A4 Page Styles */
+.editor-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: #f0f0f0;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.page {
+  width: 210mm;
+  min-height: 297mm;
+  background: white;
+  padding: 10mm;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+  margin: 0 auto;
+}
+
+.writing-area {
+  width: 190mm;
+  min-height: 277mm;
+  margin: 0 auto;
+  font-size: 12pt;
+  line-height: 1.5;
+}
+
+/* Ruler */
+.ruler {
+  height: 30px;
+  background: #f9f9f9;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  padding: 0 10mm;
+  font-size: 10px;
+  color: #666;
+}
+
+/* Block Types - Applied to paragraphs via data attributes and styles */
+.ProseMirror p {
+  margin-bottom: 1em;
+}
+
+/* Dialogue - indented center zone */
+.ProseMirror p[data-block-type="dialogue"] {
+  margin-left: calc(190mm / 20 * 6) !important;
+  width: calc(190mm / 20 * 10) !important;
+  max-width: calc(190mm / 20 * 10) !important;
+  margin-right: auto;
+}
+
+/* Parenthetical - more indented, italic */
+.ProseMirror p[data-block-type="parenthetical"] {
+  margin-left: calc(190mm / 20 * 8) !important;
+  width: calc(190mm / 20 * 6) !important;
+  max-width: calc(190mm / 20 * 6) !important;
+  margin-right: auto;
+  font-style: italic;
+}
+
+/* Character names - center aligned, bold, uppercase */
+.ProseMirror p[style*="text-align: center"] {
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+/* Scene headings - bold, uppercase */
+.ProseMirror h2 {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 1em;
+}
+
+/* TipTap Editor Styles */
+.ProseMirror {
+  outline: none;
+  min-height: 277mm;
+}
+
+.ProseMirror p {
+  margin-bottom: 1em;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  color: #adb5bd;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Comments Panel */
+.comments-panel {
+  width: 300px;
+  background: white;
+  border-left: 1px solid #ddd;
+  padding: 20px;
+  overflow-y: auto;
+  max-height: calc(100vh - 60px);
+}
+
+.comment-item {
+  padding: 10px;
+  margin-bottom: 10px;
+  background: #f9f9f9;
+  border-radius: 4px;
+  border-left: 3px solid #007bff;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* Toolbar */
+.toolbar {
+  background: white;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 20px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.toolbar-button {
+  padding: 6px 12px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.toolbar-button:hover {
+  background: #f0f0f0;
+}
+
+.toolbar-button.active {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+/* Menu */
+.menu-bar {
+  background: #2c3e50;
+  color: white;
+  padding: 8px 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.menu-item {
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.menu-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.menu-dropdown {
+  position: relative;
+}
+
+.menu-dropdown-content {
+  display: none;
+  position: absolute;
+  background: white;
+  color: #333;
+  min-width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  border-radius: 4px;
+  padding: 4px 0;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+}
+
+.menu-dropdown:hover .menu-dropdown-content {
+  display: block;
+}
+
+.menu-dropdown-item {
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.menu-dropdown-item:hover {
+  background: #f0f0f0;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
